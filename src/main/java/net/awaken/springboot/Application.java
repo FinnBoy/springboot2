@@ -1,5 +1,7 @@
 package net.awaken.springboot;
 
+import net.awaken.springboot.domain.primary.Role;
+import net.awaken.springboot.domain.secondary.RoleReadonly;
 import net.awaken.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -21,8 +23,9 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        this.userService.obtainRole(1l);
-        this.userService.getRole(1l);
+        Role role = this.userService.obtainRole(1l);
+        RoleReadonly roleReadonly = this.userService.getRole(1l);
+        assert role.getId().equals(roleReadonly.getId());
     }
 
     public void setUserService(UserService userService) {
